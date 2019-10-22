@@ -21,7 +21,7 @@
 				</el-table-column>
 				<el-table-column prop="tag" label="tag" width="200" sortable>
 				</el-table-column>
-				<el-table-column prop="createdTime" label="Created Time" width="100" sortable>
+				<el-table-column prop="createdTime" label="Created Time" width="200" sortable>
 				</el-table-column>
 				<el-table-column prop="isBlock" label="isBlock" width="120" :formatter="formatBlock" sortable>
 				</el-table-column>
@@ -50,7 +50,7 @@
 		methods: {
 			//锁定显示转换
 			formatBlock: function (row, column) {
-				return row.sex == 1 ? 'yes' : row.sex == 0 ? 'no' : 'unknow';
+				return row.isBlock == 1 ? 'yes' : row.isBlock == 0 ? 'no' : 'unknow';
 			},
 			//获取用户列表
 			getSystemDetail: function () {
