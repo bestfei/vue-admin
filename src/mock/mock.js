@@ -1,6 +1,8 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { LoginUsers, Users, SystemDetails} from './data/user';
+import { LoginUsers, Users } from './data/user';
+//引入mock data js
+import { SystemDetails} from './data/mockDataSystemDetail';
 let _Users = Users;
 let _SystemDetails = SystemDetails;
 

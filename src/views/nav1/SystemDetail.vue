@@ -23,7 +23,7 @@
 				</el-table-column>
 				<el-table-column prop="createdTime" label="Created Time" width="200" sortable>
 				</el-table-column>
-				<el-table-column prop="isBlock" label="isBlock" width="120" :formatter="formatBlock" sortable>
+				<el-table-column prop="isBlock" label="isBlock" min-width="120" :formatter="formatBlock" sortable>
 				</el-table-column>
 			</el-table>
 		</template>
@@ -61,7 +61,7 @@
 				//NProgress.start();
 				//这里是api请求名称
 				apiGetSystemDetails(para).then((res) => {
-					console.log(res.data);
+					//console.log(res.data);
 					this.systemDetails = res.data.systemDetails;
 					this.loading = false;
 					//NProgress.done();
