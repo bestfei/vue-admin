@@ -9,7 +9,8 @@ for (let i = 0; i < 5; i++) {
     tag: 'dev_ph_'+Mock.Random.date('yyyyMMdd')+'_01',
     createdUser: Mock.mock('@email'),
     createdTime: Mock.Random.date(),
-    isBlock: Mock.Random.integer(0, 1)
+    isBlock: Mock.Random.integer(0, 1),
+    'description': '@string("lower", 5, 10)', //一串随机字符串 5-10 小写字符串
   }));
 }
 

@@ -23,9 +23,11 @@
 				</el-table-column>
 				<el-table-column prop="createdUser" label="Created User" width="150" sortable>
 				</el-table-column>
-				<el-table-column prop="createdTime" label="Created Time" width="200" sortable>
+				<el-table-column prop="createdTime" label="Created Time" width="150" sortable>
 				</el-table-column>
-				<el-table-column prop="isBlock" label="isBlock" min-width="120" :formatter="formatBlock" sortable>
+				<el-table-column prop="isBlock" label="isBlock" width="110" :formatter="formatBlock" sortable>
+				</el-table-column>
+				<el-table-column prop="description" label="description" min-width="120" sortable>
 				</el-table-column>
 			</el-table>
 		</template>
