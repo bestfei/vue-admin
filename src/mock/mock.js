@@ -2,9 +2,9 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { LoginUsers, Users } from './data/user';
 //引入mock data js
-import { SystemDetails} from './data/mockDataSystemDetail';
+import { MockDataSystemDetails } from './data/mockDataSystemDetail';
 let _Users = Users;
-let _SystemDetails = SystemDetails;
+let _SystemDetails = MockDataSystemDetails;
 
 export default {
   /**
@@ -46,7 +46,7 @@ export default {
       });
     });
 
-    //获取用户列表
+    //获取系统列表
     mock.onGet('/system/list').reply(config => {
       let {name} = config.params;
       let mockSystemDetails = _SystemDetails.filter(systemDetail => {

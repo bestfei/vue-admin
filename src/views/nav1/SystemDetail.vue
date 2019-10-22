@@ -17,9 +17,11 @@
 			<el-table :data="systemDetails" highlight-current-row v-loading="loading" style="width: 100%;">
 				<el-table-column type="index" width="60">
 				</el-table-column>
-				<el-table-column prop="name" label="System Name" width="150" sortable>
+				<el-table-column prop="appname" label="System Name" width="150" sortable>
 				</el-table-column>
 				<el-table-column prop="tag" label="tag" width="200" sortable>
+				</el-table-column>
+				<el-table-column prop="createdUser" label="Created User" width="150" sortable>
 				</el-table-column>
 				<el-table-column prop="createdTime" label="Created Time" width="200" sortable>
 				</el-table-column>
