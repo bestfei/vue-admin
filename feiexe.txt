@@ -1,0 +1,76 @@
+一、新增一个 Form2.vue 的页面
+1、修改 routes.js 文件
+a 增加引用 import Form2 from './views/nav1/Form2.vue'
+b 新增子路由  { path: '/form2', component: Form2, name: 'Form2' },
+
+2、修改 Form2.vue 内容
+
+输入框组件
+<el-input v-model="form.name"></el-input>
+
+单选框组件
+<el-form-item label="性别">
+    <el-radio-group v-model="form.gender">
+        <el-radio label="男"></el-radio>
+        <el-radio label="女"></el-radio>
+    </el-radio-group>
+</el-form-item>
+
+复选框组件
+<el-form-item label="兴趣爱好">
+    <el-checkbox-group v-model="form.hobby">
+        <el-checkbox label="旅行" name="hobby"></el-checkbox>
+        <el-checkbox label="阅读" name="hobby"></el-checkbox>
+        <el-checkbox label="健身" name="hobby"></el-checkbox>
+        <el-checkbox label="学习" name="hobby"></el-checkbox>
+    </el-checkbox-group>
+</el-form-item>
+
+下拉框
+<el-form-item label="活动区域">
+    <el-select v-model="form.region" placeholder="请选择活动区域">
+        <el-option label="上海" value="shanghai"></el-option>
+        <el-option label="北京" value="beijing"></el-option>
+    </el-select>
+</el-form-item>
+
+日期组件
+<el-form-item label="出生日期">
+    <el-col :span="11">
+        <el-date-picker type="date" placeholder="选择日期" v-model="form.birthday" style="width: 100%;"></el-date-picker>
+    </el-col>
+</el-form-item>
+时间组件
+<el-col :span="11">
+    <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.birthdaytime" style="width: 100%;"></el-time-picker>
+</el-col>
+
+
+开关组件
+<el-form-item label="同意授权">
+    <el-switch on-text="" off-text="" v-model="form.allow"></el-switch>
+</el-form-item>
+
+
+
+
+二、新增一个 User2.vue 的页面
+1、修改 routes.js 文件
+a 增加引用 import User2 from './views/nav1/User2.vue'
+b 新增子路由  { path: '/User2', component: User2, name: 'User2' },
+
+2、修改 User2.vue 内容
+
+:inline="true"  影响组件是不是在一行显示
+
+
+3、 mock 接口返回
+user.js 定义mock内容规则
+mock.js 定义mock接口
+
+
+
+三、模拟写一个table展示的页面 SystemDetail.vue
+1、修改 routes.js 文件
+a 增加引用 import SystemDetail from './views/nav1/SystemDetail.vue'
+b 新增子路由  { path: '/SystemDetail', component: SystemDetail, name: 'SystemDetail' },
