@@ -49,17 +49,21 @@ export default {
     //获取系统列表
     mock.onGet('/system/list').reply(config => {
       let {name} = config.params;
-      //console.log(name);
+      //筛选功能
       let mockSystemDetails = _SystemDetails.filter(systemDetails => {
-          //console.log(systemDetails);
-        //根据mock返回体的appname字段筛选  
+        //根据mock返回体的appname字段筛选
         if (name && systemDetails.appname.indexOf(name) == -1) return false;
         return true;
       });
+
+      //如果不需要筛选功能
+      //let mockSystemDetails = _SystemDetails
+
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, {
-            systemDetails: mockSystemDetails
+            //  把mock结果放入接口返回 apiResponseSystemDetails节点
+            apiResponseSystemDetails: mockSystemDetails
           }]);
         }, 1000);
       });

@@ -66,7 +66,7 @@
 				//这里是api请求名称
 				apiGetSystemDetails(para).then((res) => {
 					//console.log(res.data);
-					this.systemDetails = res.data.systemDetails;
+					this.systemDetails = res.data.apiResponseSystemDetails;
 					this.loading = false;
 					//NProgress.done();
 				});
