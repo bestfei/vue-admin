@@ -49,8 +49,11 @@ export default {
     //获取系统列表
     mock.onGet('/system/list').reply(config => {
       let {name} = config.params;
-      let mockSystemDetails = _SystemDetails.filter(systemDetail => {
-        if (name && systemDetail.name.indexOf(name) == -1) return false;
+      //console.log(name);
+      let mockSystemDetails = _SystemDetails.filter(systemDetails => {
+          //console.log(systemDetails);
+        //根据mock返回体的appname字段筛选  
+        if (name && systemDetails.appname.indexOf(name) == -1) return false;
         return true;
       });
       return new Promise((resolve, reject) => {

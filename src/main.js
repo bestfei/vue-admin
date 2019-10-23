@@ -37,9 +37,9 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-//router.afterEach(transition => {
-//NProgress.done();
-//});
+// router.afterEach(transition => {
+// NProgress.done();
+// });
 
 new Vue({
   //el: '#app',
@@ -49,4 +49,3 @@ new Vue({
   //components: { App }
   render: h => h(App)
 }).$mount('#app')
-
