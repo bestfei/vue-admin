@@ -49,10 +49,10 @@ export default {
     //获取系统列表
     mock.onGet('/system/list').reply(config => {
       let {name} = config.params;
-      //筛选功能
-      let mockSystemDetails = _SystemDetails.filter(systemDetails => {
+      //筛选功能 自定义变量systemDetails11
+      let mockSystemDetails = _SystemDetails.filter(systemDetails11 => {
         //根据mock返回体的appname字段筛选
-        if (name && systemDetails.appname.indexOf(name) == -1) return false;
+        if (name && systemDetails11.appname.indexOf(name) == -1) return false;
         return true;
       });
 

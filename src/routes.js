@@ -7,6 +7,7 @@ import Form from './views/nav1/Form.vue'
 import Form2 from './views/nav1/Form2.vue'
 import user from './views/nav1/user.vue'
 import User2 from './views/nav1/User2.vue'
+import SystemOperation from './views/nav1/SystemOperation.vue'
 import SystemDetail from './views/nav1/SystemDetail.vue'
 import Page4 from './views/nav2/Page4.vue'
 import Page5 from './views/nav2/Page5.vue'
@@ -35,11 +36,12 @@ let routes = [
         children: [
             { path: '/main', component: Main, name: '主页', hidden: true },
             { path: '/table', component: Table, name: 'Table' },
-            { path: '/form', component: Form, name: 'Form' },
+            { path: '/SystemOperation', component: SystemOperation, name: 'System Operation' },
+            //{ path: '/form', component: Form, name: 'Form' },
             { path: '/form2', component: Form2, name: 'Form2 Best Add' },
             { path: '/user', component: user, name: '列表' },
-            { path: '/User2', component: User2, name: 'User2 Best Add' },
-            { path: '/SystemDetail', component: SystemDetail, name: 'SystemDetail Best Add' },
+            //{ path: '/User2', component: User2, name: 'User2 Best Add' },
+            { path: '/SystemDetail', component: SystemDetail, name: 'System Detail' },
         ]
     },
     {

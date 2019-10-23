@@ -58,6 +58,7 @@
 			},
 			//获取用户列表
 			getSystemDetail: function () {
+				console.log("getSystemDetail()");
 				let para = {
 					name: this.filters.name
 				};
@@ -73,6 +74,7 @@
 			}
 		},
 		mounted() {
+			console.log("mounted()");
 			this.getSystemDetail();
 		}
 	};
