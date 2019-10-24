@@ -69,6 +69,20 @@ export default {
       });
     });
 
+    //删除系统
+    mock.onGet('/system/remove').reply(config => {
+      let { appname } = config.params;
+      _SystemDetails = _SystemDetails.filter(u => u.appname !== appname);
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: 'delete success'
+          }]);
+        }, 500);
+      });
+    });
+
     //获取用户列表
     mock.onGet('/user/list').reply(config => {
       let {name} = config.params;

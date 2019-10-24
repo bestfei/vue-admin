@@ -56,7 +56,7 @@
 			formatBlock: function (row, column) {
 				return row.isBlock == 1 ? 'yes' : row.isBlock == 0 ? 'no' : 'unknow';
 			},
-			//获取用户列表
+			//获取系统列表
 			getSystemDetail: function () {
 				console.log("getSystemDetail()");
 				let para = {

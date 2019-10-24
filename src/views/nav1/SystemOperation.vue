@@ -4,10 +4,10 @@
 		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
 			<el-form :inline="true" >
 				<el-form-item>
-					<el-input  placeholder="姓名"></el-input>
+					<el-input v-model="filters.name" placeholder="appname"></el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" >查询</el-button>
+					<el-button type="primary" v-on:click="getSystemDetail">Query</el-button>
 				</el-form-item>
 				<el-form-item>
 					<el-button type="primary" >新增</el-button>
@@ -16,21 +16,22 @@
 		</el-col>
 
 		<!--列表-->
-		<!--
-		<el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
+		<el-table :data="systemDetails" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
 			<el-table-column type="selection" width="55">
 			</el-table-column>
-			<el-table-column type="index" width="60">
+			<el-table-column type="index" width="30">
 			</el-table-column>
-			<el-table-column prop="name" label="姓名" width="120" sortable>
+			<el-table-column prop="appname" label="System Name" width="150" sortable>
 			</el-table-column>
-			<el-table-column prop="sex" label="性别" width="100" :formatter="formatSex" sortable>
+			<el-table-column prop="tag" label="tag" width="200" sortable>
 			</el-table-column>
-			<el-table-column prop="age" label="年龄" width="100" sortable>
+			<el-table-column prop="createdUser" label="Created User" width="150" sortable>
 			</el-table-column>
-			<el-table-column prop="birth" label="生日" width="120" sortable>
+			<el-table-column prop="createdTime" label="Created Time" width="150" sortable>
 			</el-table-column>
-			<el-table-column prop="addr" label="地址" min-width="180" sortable>
+			<el-table-column prop="isBlock" label="isBlock" width="110" :formatter="formatBlock" sortable>
+			</el-table-column>
+			<el-table-column prop="description" label="description" min-width="120" sortable>
 			</el-table-column>
 			<el-table-column label="操作" width="150">
 				<template scope="scope">
@@ -39,7 +40,6 @@
 				</template>
 			</el-table-column>
 		</el-table>
-		-->
 
 		<!--工具条-->
 		<!--
@@ -112,11 +112,13 @@
 	</section>
 </template>
 
-<!--
+
 <script>
 	import util from '../../common/js/util'
 	//import NProgress from 'nprogress'
 	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
+	import { apiGetSystemDetails } from '../../api/api';
+	import { removeSystemDetail } from '../../api/api';
 
 	export default {
 		data() {
@@ -124,6 +126,7 @@
 				filters: {
 					name: ''
 				},
+				systemDetails: [],
 				users: [],
 				total: 0,
 				page: 1,
@@ -166,48 +169,50 @@
 			}
 		},
 		methods: {
-			//性别显示转换
-			formatSex: function (row, column) {
-				return row.sex == 1 ? '男' : row.sex == 0 ? '女' : '未知';
+		//锁定显示转换
+			formatBlock: function (row, column) {
+				return row.isBlock == 1 ? 'yes' : row.isBlock == 0 ? 'no' : 'unknow';
 			},
 			handleCurrentChange(val) {
 				this.page = val;
 				this.getUsers();
 			},
-			//获取用户列表
-			getUsers() {
+			//获取系统列表
+			getSystemDetail: function () {
+				console.log("getSystemDetail");
 				let para = {
-					page: this.page,
 					name: this.filters.name
 				};
-				this.listLoading = true;
+				this.loading = true;
 				//NProgress.start();
-				getUserListPage(para).then((res) => {
-					this.total = res.data.total;
-					this.users = res.data.users;
-					this.listLoading = false;
+				//这里是api请求名称
+				apiGetSystemDetails(para).then((res) => {
+					//console.log(res.data);
+					this.systemDetails = res.data.apiResponseSystemDetails;
+					this.loading = false;
 					//NProgress.done();
 				});
 			},
 			//删除
 			handleDel: function (index, row) {
+				//console.log(row);
 				this.$confirm('确认删除该记录吗?', '提示', {
 					type: 'warning'
 				}).then(() => {
 					this.listLoading = true;
 					//NProgress.start();
-					let para = { id: row.id };
-					removeUser(para).then((res) => {
+					let para = { appname: row.appname };
+					removeSystemDetail(para).then((res) => {
 						this.listLoading = false;
 						//NProgress.done();
 						this.$message({
-							message: '删除成功',
+							message: 'delete success',
 							type: 'success'
 						});
-						this.getUsers();
+						this.getSystemDetail();
 					});
 				}).catch(() => {
-
+					console.log("click cancel buttom");
 				});
 			},
 			//显示编辑界面
@@ -301,12 +306,12 @@
 			}
 		},
 		mounted() {
-			this.getUsers();
+			this.getSystemDetail();
 		}
 	}
 
 </script>
--->
+
 
 <style scoped>
 
