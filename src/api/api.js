@@ -19,3 +19,5 @@ export const addUser = params => { return axios.get(`${base}/user/add`, { params
 export const apiGetSystemDetails = params => { return axios.get(`${base}/system/list`, { params: params }); };
 
 export const removeSystemDetail = params => { return axios.get(`${base}/system/remove`, { params: params }); };
+
+export const addSystemDetail = params => { return axios.get(`${base}/system/add`, { params: params }); };

@@ -83,6 +83,27 @@ export default {
       });
     });
 
+    //新增系统
+    mock.onGet('/system/add').reply(config => {
+      let { appname, tag, createdUser, createdTime, isBlock, description } = config.params;
+      _SystemDetails.push({
+        appname: appname,
+        tag: tag,
+        createdUser: createdUser,
+        createdTime: createdTime,
+        isBlock: isBlock,
+        description: description
+      });
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: '新增成功'
+          }]);
+        }, 500);
+      });
+    });
+
     //获取用户列表
     mock.onGet('/user/list').reply(config => {
       let {name} = config.params;

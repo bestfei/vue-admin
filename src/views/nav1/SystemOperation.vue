@@ -10,7 +10,7 @@
 					<el-button type="primary" v-on:click="getSystemDetail">Query</el-button>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" >新增</el-button>
+					<el-button type="primary" @click="handleAdd">Add</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
@@ -81,34 +81,37 @@
 		-->
 
 		<!--新增界面-->
-		<!--
 		<el-dialog title="新增" v-model="addFormVisible" :close-on-click-modal="false">
-			<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-				<el-form-item label="姓名" prop="name">
-					<el-input v-model="addForm.name" auto-complete="off"></el-input>
+			<el-form :model="addForm" label-width="100px" :rules="addFormRules" ref="addForm">
+				<el-form-item label="appname" prop="appname">
+					<el-input v-model="addForm.appname" auto-complete="off"></el-input>
 				</el-form-item>
-				<el-form-item label="性别">
-					<el-radio-group v-model="addForm.sex">
-						<el-radio class="radio" :label="1">男</el-radio>
-						<el-radio class="radio" :label="0">女</el-radio>
+				<el-form-item label="tag" prop="tag">
+					<el-input v-model="addForm.tag" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="Created User">
+					<el-input v-model="addForm.createdUser" :min="0" :max="200"></el-input>
+				</el-form-item>
+				<el-form-item label="Created Time">
+					<el-date-picker type="date" placeholder="click me" v-model="addForm.createdTime"></el-date-picker>
+				</el-form-item>
+				<el-form-item label="need block">
+					<el-radio-group v-model="addForm.isBlock">
+						<el-radio class="radio" :label="1">yes</el-radio>
+						<el-radio class="radio" :label="0">no</el-radio>
 					</el-radio-group>
 				</el-form-item>
-				<el-form-item label="年龄">
-					<el-input-number v-model="addForm.age" :min="0" :max="200"></el-input-number>
-				</el-form-item>
-				<el-form-item label="生日">
-					<el-date-picker type="date" placeholder="选择日期" v-model="addForm.birth"></el-date-picker>
-				</el-form-item>
-				<el-form-item label="地址">
-					<el-input type="textarea" v-model="addForm.addr"></el-input>
+				<el-form-item label="description">
+					<el-input type="textarea" v-model="addForm.description"></el-input>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
-				<el-button @click.native="addFormVisible = false">取消</el-button>
+				<el-button @click.native="addFormVisible = false">cancel</el-button>
+				<!--给vue组件绑定事件时候，必须加上native ，否则会认为监听的是来自Item组件自定义的事件-->
 				<el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
 			</div>
 		</el-dialog>
-		-->
+
 	</section>
 </template>
 
@@ -117,8 +120,7 @@
 	import util from '../../common/js/util'
 	//import NProgress from 'nprogress'
 	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
-	import { apiGetSystemDetails } from '../../api/api';
-	import { removeSystemDetail } from '../../api/api';
+	import { apiGetSystemDetails, removeSystemDetail, addSystemDetail } from '../../api/api';
 
 	export default {
 		data() {
@@ -127,7 +129,6 @@
 					name: ''
 				},
 				systemDetails: [],
-				users: [],
 				total: 0,
 				page: 1,
 				listLoading: false,
@@ -159,11 +160,12 @@
 				},
 				//新增界面数据
 				addForm: {
-					name: '',
-					sex: -1,
-					age: 0,
-					birth: '',
-					addr: ''
+					appname: '',
+					tag: '',
+					createdUser: '',
+					createdTime: '',
+					isBlock: 0,
+					description: ''
 				}
 
 			}
@@ -179,7 +181,7 @@
 			},
 			//获取系统列表
 			getSystemDetail: function () {
-				console.log("getSystemDetail");
+				//console.log("getSystemDetail");
 				let para = {
 					name: this.filters.name
 				};
@@ -224,11 +226,12 @@
 			handleAdd: function () {
 				this.addFormVisible = true;
 				this.addForm = {
-					name: '',
-					sex: -1,
-					age: 0,
-					birth: '',
-					addr: ''
+					appname: '',
+					tag: '',
+					createdUser: '',
+					createdTime: '',
+					isBlock: 0,
+					description: ''
 				};
 			},
 			//编辑
@@ -249,7 +252,7 @@
 								});
 								this.$refs['editForm'].resetFields();
 								this.editFormVisible = false;
-								this.getUsers();
+								this.getSystemDetail();
 							});
 						});
 					}
@@ -262,9 +265,10 @@
 						this.$confirm('确认提交吗？', '提示', {}).then(() => {
 							this.addLoading = true;
 							//NProgress.start();
+							console.log(this.addForm);
 							let para = Object.assign({}, this.addForm);
-							para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
-							addUser(para).then((res) => {
+							//para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
+							addSystemDetail(para).then((res) => {
 								this.addLoading = false;
 								//NProgress.done();
 								this.$message({
@@ -273,7 +277,7 @@
 								});
 								this.$refs['addForm'].resetFields();
 								this.addFormVisible = false;
-								this.getUsers();
+								this.getSystemDetail();
 							});
 						});
 					}
