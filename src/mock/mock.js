@@ -116,6 +116,32 @@ export default {
       });
     });
 
+
+    //编辑系统
+    mock.onGet('/system/edit').reply(config => {
+      let { id, appname, tag, createdUser, createdTime, isBlock, description } = config.params;
+      _SystemDetails.some(u => {
+        if (u.id === id) {
+          u.appname = appname;
+          u.tag = tag;
+          u.createdUser = createdUser;
+          u.createdTime = createdTime;
+          u.isBlock = isBlock;
+          u.description = description;
+          return true;
+        }
+      });
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: '编辑成功'
+          }]);
+        }, 500);
+      });
+    });
+
+
     //获取用户列表
     mock.onGet('/user/list').reply(config => {
       let {name} = config.params;

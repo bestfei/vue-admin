@@ -141,7 +141,7 @@
 	import util from '../../common/js/util'
 	//import NProgress from 'nprogress'
 	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
-	import { apiGetSystemDetails, removeSystemDetail, addSystemDetail, requestSuccess2 } from '../../api/api';
+	import { apiGetSystemDetails, removeSystemDetail, addSystemDetail, editSystem, requestSuccess2 } from '../../api/api';
 
 	export default {
 		data() {
@@ -287,8 +287,8 @@
 							this.editLoading = true;
 							//NProgress.start();
 							let para = Object.assign({}, this.editForm);
-							para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
-							editUser(para).then((res) => {
+							//para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
+							editSystem(para).then((res) => {
 								this.editLoading = false;
 								//NProgress.done();
 								this.$message({
