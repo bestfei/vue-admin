@@ -54,26 +54,28 @@
 		-->
 
 		<!--编辑界面-->
-		<!--
 		<el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
 			<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-				<el-form-item label="姓名" prop="name">
-					<el-input v-model="editForm.name" auto-complete="off"></el-input>
+				<el-form-item label="appname" prop="appname">
+					<el-input v-model="editForm.appname" auto-complete="off"></el-input>
 				</el-form-item>
-				<el-form-item label="性别">
-					<el-radio-group v-model="editForm.sex">
-						<el-radio class="radio" :label="1">男</el-radio>
-						<el-radio class="radio" :label="0">女</el-radio>
+				<el-form-item label="tag" prop="tag">
+					<el-input v-model="editForm.tag" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="createdUser" prop="createdUser">
+					<el-input v-model="editForm.createdUser" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="createdTime">
+					<el-date-picker type="date" placeholder="选择日期" v-model="editForm.createdTime"></el-date-picker>
+				</el-form-item>
+				<el-form-item label="need block">
+					<el-radio-group v-model="editForm.isBlock">
+						<el-radio class="radio" :label="1">yes</el-radio>
+						<el-radio class="radio" :label="0">no</el-radio>
 					</el-radio-group>
 				</el-form-item>
-				<el-form-item label="年龄">
-					<el-input-number v-model="editForm.age" :min="0" :max="200"></el-input-number>
-				</el-form-item>
-				<el-form-item label="生日">
-					<el-date-picker type="date" placeholder="选择日期" v-model="editForm.birth"></el-date-picker>
-				</el-form-item>
-				<el-form-item label="地址">
-					<el-input type="textarea" v-model="editForm.addr"></el-input>
+				<el-form-item label="description">
+					<el-input type="textarea" v-model="editForm.description"></el-input>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -81,7 +83,6 @@
 				<el-button type="primary" @click.native="editSubmit" :loading="editLoading">提交</el-button>
 			</div>
 		</el-dialog>
-		-->
 
 		<!--新增界面-->
 		<el-dialog title="新增" v-model="addFormVisible" :close-on-click-modal="false">
@@ -163,12 +164,12 @@
 				},
 				//编辑界面数据
 				editForm: {
-					id: 0,
-					name: '',
-					sex: -1,
-					age: 0,
-					birth: '',
-					addr: ''
+					appname: '',
+					tag: '',
+					createdUser: '',
+					createdTime: '',
+					isBlock: 0,
+					description: ''
 				},
 
 				addFormVisible: false,//新增界面是否显示
@@ -334,12 +335,13 @@
 				});
 			},
 			testSubmit: function () {
-				this.$confirm('确认提交吗？', '提示', {}).then(() => {
+				this.$confirm('确认提交吗？', '提示', {confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'
+					}).then(() => {
 					requestSuccess2().then((res) => {
-						console.log(res);
-						console.log(res.status);
-						console.log(res.data);
-						console.log(res.data.code);
+						//console.log(res);
+						//console.log(res.status);
+						//console.log(res.data);
+						//console.log(res.data.code);
 						//实际页面显示的信息
 						this.$message({
 							message: 'test submit success',
