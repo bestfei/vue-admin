@@ -83,6 +83,18 @@ export default {
       });
     });
 
+    // mock 成功页面
+    mock.onGet('/success2').reply(config => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: 'api response success'
+          }]);
+        }, 500);
+      });
+    });
+
     //新增系统
     mock.onGet('/system/add').reply(config => {
       let { appname, tag, createdUser, createdTime, isBlock, description } = config.params;

@@ -12,6 +12,9 @@
 				<el-form-item>
 					<el-button type="primary" @click="handleAdd">Add</el-button>
 				</el-form-item>
+				<el-form-item>
+					<el-button type="primary" @click="testButton">Test</el-button>
+				</el-form-item>
 			</el-form>
 		</el-col>
 
@@ -112,6 +115,23 @@
 			</div>
 		</el-dialog>
 
+		<!--Test界面-->
+		<el-dialog title="Test" v-model="testFormVisible" :close-on-click-modal="false">
+			<el-form :model="testForm" label-width="120px" :rules="testFormRules" ref="testForm">
+				<el-form-item label="testappname" prop="testappname">
+					<el-input v-model="testForm.testappname" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="testdescription" prop="testdescription">
+					<el-input type="textarea" v-model="testForm.testdescription"></el-input>
+				</el-form-item>
+			</el-form>
+			<div slot="footer" class="dialog-footer">
+				<el-button @click.native="testFormVisible = false">cancel</el-button>
+				<!--给vue组件绑定事件时候，必须加上native ，否则会认为监听的是来自Item组件自定义的事件-->
+				<el-button type="primary" @click.native="testSubmit" :loading="addLoading">提交</el-button>
+			</div>
+		</el-dialog>
+
 	</section>
 </template>
 
@@ -120,7 +140,7 @@
 	import util from '../../common/js/util'
 	//import NProgress from 'nprogress'
 	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
-	import { apiGetSystemDetails, removeSystemDetail, addSystemDetail } from '../../api/api';
+	import { apiGetSystemDetails, removeSystemDetail, addSystemDetail, requestSuccess2 } from '../../api/api';
 
 	export default {
 		data() {
@@ -154,8 +174,9 @@
 				addFormVisible: false,//新增界面是否显示
 				addLoading: false,
 				addFormRules: {
-					name: [
-						{ required: true, message: '请输入姓名', trigger: 'blur' }
+					//trigger: 'blur' 触发方式，blur 失去焦点事件，focus 获取焦点事件，change数据改变
+					appname: [
+						{ required: true, message: '请输入appname', trigger: 'blur' }
 					]
 				},
 				//新增界面数据
@@ -166,6 +187,21 @@
 					createdTime: '',
 					isBlock: 0,
 					description: ''
+				},
+				testFormVisible: false,//新增界面是否显示
+				testFormRules: {
+					//trigger: 触发方式，blur 失去焦点事件，focus 获取焦点事件，change数据改变
+					testappname: [
+						{ required: true, message: '请输入appname', trigger: 'blur' }
+					],
+					testdescription: [
+						{ required: true, message: '请输入description', trigger: 'blur' }
+					]
+				},
+				//test界面数据
+				testForm: {
+					testappname: '',
+					testdescription: ''
 				}
 
 			}
@@ -222,7 +258,15 @@
 				this.editFormVisible = true;
 				this.editForm = Object.assign({}, row);
 			},
-			//显示新增界面
+			//显示test按钮界面和设置界面默认值
+			testButton: function () {
+				this.testFormVisible = true;
+				this.testForm = {
+					testappname: '',
+					testdescription: ''
+				};
+			},
+			//显示新增界面和设置界面默认值
 			handleAdd: function () {
 				this.addFormVisible = true;
 				this.addForm = {
@@ -260,11 +304,17 @@
 			},
 			//新增
 			addSubmit: function () {
+				//这里返回标签节点
+				console.log("this.$refs.addForm:");
+				console.log(this.$refs.addForm);
 				this.$refs.addForm.validate((valid) => {
 					if (valid) {
+						console.log("valid");
+						console.log(valid);
 						this.$confirm('确认提交吗？', '提示', {}).then(() => {
 							this.addLoading = true;
 							//NProgress.start();
+							console.log("addSubmit: function () - this.addForm:");
 							console.log(this.addForm);
 							let para = Object.assign({}, this.addForm);
 							//para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
@@ -281,6 +331,23 @@
 							});
 						});
 					}
+				});
+			},
+			testSubmit: function () {
+				this.$confirm('确认提交吗？', '提示', {}).then(() => {
+					requestSuccess2().then((res) => {
+						console.log(res);
+						console.log(res.status);
+						console.log(res.data);
+						console.log(res.data.code);
+						//实际页面显示的信息
+						this.$message({
+							message: 'test submit success',
+							type: 'success'
+						});
+					});
+					this.$refs['testForm'].resetFields();
+					this.testFormVisible = false;
 				});
 			},
 			selsChange: function (sels) {
