@@ -2,8 +2,9 @@ import Mock from 'mockjs';
 
 const MockDataSystemDetails = [];
 
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 55; i++) {
   MockDataSystemDetails.push(Mock.mock({
+    id: Mock.Random.guid(),
     //在数组中随机找一个
     'appname|1':['be-app','be-kyc-biz','common-biz','coupon-biz','mpf-biz','ops-gw','sa-biz','trade-biz','trade-gw'],
     tag: 'dev_ph_'+Mock.Random.date('yyyyMMdd')+'_01',

@@ -46,6 +46,25 @@ export default {
       });
     });
 
+    //获取系统列表（分页）
+    mock.onGet('/system/listpage').reply(config => {
+      let {page, name} = config.params;
+      let mockSystemDetails = _SystemDetails.filter(systemDetails => {
+        if (name && systemDetails.appname.indexOf(name) == -1) return false;
+        return true;
+      });
+      let total = mockSystemDetails.length;
+      mockSystemDetails = mockSystemDetails.filter((u, index) => index < 20 * page && index >= 20 * (page - 1));
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            total: total,
+            apiResponseSystemDetails: mockSystemDetails
+          }]);
+        }, 1000);
+      });
+    });
+
     //获取系统列表
     mock.onGet('/system/list').reply(config => {
       let {name} = config.params;
@@ -122,13 +141,14 @@ export default {
       let { id, appname, tag, createdUser, createdTime, isBlock, description } = config.params;
       _SystemDetails.some(u => {
         if (u.id === id) {
-          u.appname = appname;
-          u.tag = tag;
-          u.createdUser = createdUser;
-          u.createdTime = createdTime;
-          u.isBlock = isBlock;
-          u.description = description;
-          return true;
+            //console.log("appname:"+appname);
+            u.appname = appname;
+            u.tag = tag;
+            u.createdUser = createdUser;
+            u.createdTime = createdTime;
+            u.isBlock = isBlock;
+            u.description = description;
+            return true;
         }
       });
       return new Promise((resolve, reject) => {
@@ -167,6 +187,7 @@ export default {
       });
       let total = mockUsers.length;
       mockUsers = mockUsers.filter((u, index) => index < 20 * page && index >= 20 * (page - 1));
+      //console.log(mockUsers);
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, {
@@ -209,6 +230,7 @@ export default {
     //编辑用户
     mock.onGet('/user/edit').reply(config => {
       let { id, name, addr, age, birth, sex } = config.params;
+      console.log(config.params);
       _Users.some(u => {
         if (u.id === id) {
           u.name = name;

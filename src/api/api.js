@@ -18,6 +18,8 @@ export const editUser = params => { return axios.get(`${base}/user/edit`, { para
 
 export const addUser = params => { return axios.get(`${base}/user/add`, { params: params }); };
 
+export const apiGetSystemDetailListPage = params => { return axios.get(`${base}/system/listpage`, { params: params }); };
+
 export const apiGetSystemDetails = params => { return axios.get(`${base}/system/list`, { params: params }); };
 
 export const removeSystemDetail = params => { return axios.get(`${base}/system/remove`, { params: params }); };

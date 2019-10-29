@@ -22,7 +22,7 @@
 		<el-table :data="systemDetails" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
 			<el-table-column type="selection" width="55">
 			</el-table-column>
-			<el-table-column type="index" width="30">
+			<el-table-column type="index" width="60">
 			</el-table-column>
 			<el-table-column prop="appname" label="System Name" width="150" sortable>
 			</el-table-column>
@@ -45,13 +45,11 @@
 		</el-table>
 
 		<!--工具条-->
-		<!--
 		<el-col :span="24" class="toolbar">
 			<el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>
 			<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="20" :total="total" style="float:right;">
 			</el-pagination>
 		</el-col>
-		-->
 
 		<!--编辑界面-->
 		<el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
@@ -141,13 +139,13 @@
 	import util from '../../common/js/util'
 	//import NProgress from 'nprogress'
 	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
-	import { apiGetSystemDetails, removeSystemDetail, addSystemDetail, editSystem, requestSuccess2 } from '../../api/api';
+	import { apiGetSystemDetailListPage, apiGetSystemDetails, removeSystemDetail, addSystemDetail, editSystem, requestSuccess2 } from '../../api/api';
 
 	export default {
 		data() {
 			return {
 				filters: {
-					name: ''
+					appname: ''
 				},
 				systemDetails: [],
 				total: 0,
@@ -164,6 +162,7 @@
 				},
 				//编辑界面数据
 				editForm: {
+					id: 0,
 					appname: '',
 					tag: '',
 					createdUser: '',
@@ -214,19 +213,21 @@
 			},
 			handleCurrentChange(val) {
 				this.page = val;
-				this.getUsers();
+				this.getSystemDetail();
 			},
 			//获取系统列表
 			getSystemDetail: function () {
 				//console.log("getSystemDetail");
 				let para = {
+					page: this.page,
 					name: this.filters.name
 				};
 				this.loading = true;
 				//NProgress.start();
 				//这里是api请求名称
-				apiGetSystemDetails(para).then((res) => {
+				apiGetSystemDetailListPage(para).then((res) => {
 					//console.log(res.data);
+					this.total = res.data.total;
 					this.systemDetails = res.data.apiResponseSystemDetails;
 					this.loading = false;
 					//NProgress.done();
@@ -256,6 +257,8 @@
 			},
 			//显示编辑界面
 			handleEdit: function (index, row) {
+				console.log("handleEdit.row:")
+				console.log(row);
 				this.editFormVisible = true;
 				this.editForm = Object.assign({}, row);
 			},
@@ -287,6 +290,7 @@
 							this.editLoading = true;
 							//NProgress.start();
 							let para = Object.assign({}, this.editForm);
+							console.log(para);
 							//para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
 							editSystem(para).then((res) => {
 								this.editLoading = false;
@@ -330,8 +334,8 @@
 								this.addFormVisible = false;
 								this.getSystemDetail();
 							});
-						});
-					}
+						}); // end this
+					} // end if
 				});
 			},
 			testSubmit: function () {

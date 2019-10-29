@@ -203,6 +203,8 @@
 			},
 			//显示编辑界面
 			handleEdit: function (index, row) {
+				console.log("handleEdit row:")
+				console.log(row);
 				this.editFormVisible = true;
 				this.editForm = Object.assign({}, row);
 			},
