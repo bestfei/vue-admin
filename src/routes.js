@@ -31,11 +31,11 @@ let routes = [
     {
         path: '/',
         component: Home,
-        name: 'System Operation',
+        name: 'Service Operation',
         //iconCls: 'el-icon-message',//图标样式class
         children: [
             { path: '/main', component: Main, name: '主页', hidden: true },
-            { path: '/SystemOperation', component: SystemOperation, name: 'System List' },
+            { path: '/SystemOperation', component: SystemOperation, name: 'System Operation' },
             { path: '/SystemDetail', component: SystemDetail, name: 'System Detail' },
             { path: '/form2', component: Form2, name: 'Form2 Best Add' },
             //{ path: '/table', component: Table, name: 'Table' },
@@ -74,6 +74,7 @@ let routes = [
             { path: '/echarts', component: echarts, name: 'echarts' }
         ]
     },
+    //全不匹配的情况下，返回404，路由按顺序从上到下，依次匹配。最后一个*能匹配全部
     {
         path: '*',
         hidden: true,
