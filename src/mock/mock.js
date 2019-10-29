@@ -102,6 +102,21 @@ export default {
       });
     });
 
+    //批量删除系统
+    mock.onGet('/system/batchremove').reply(config => {
+      let { ids } = config.params;
+      ids = ids.split(',');
+      _SystemDetails = _SystemDetails.filter(u => !ids.includes(u.id));
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: '删除成功'
+          }]);
+        }, 500);
+      });
+    });
+
     // mock 成功页面
     mock.onGet('/success2').reply(config => {
       return new Promise((resolve, reject) => {

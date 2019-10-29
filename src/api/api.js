@@ -29,3 +29,5 @@ export const addSystemDetail = params => { return axios.get(`${base}/system/add`
 export const editSystem = params => { return axios.get(`${base}/system/edit`, { params: params }); };
 
 export const requestSuccess2 = params => { return axios.get(`${base}/success2`, { params: params }); };
+
+export const batchRemoveSystem = params => { return axios.get(`${base}/system/batchremove`, { params: params }); };

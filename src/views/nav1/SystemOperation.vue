@@ -139,7 +139,7 @@
 	import util from '../../common/js/util'
 	//import NProgress from 'nprogress'
 	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
-	import { apiGetSystemDetailListPage, apiGetSystemDetails, removeSystemDetail, addSystemDetail, editSystem, requestSuccess2 } from '../../api/api';
+	import { apiGetSystemDetailListPage, apiGetSystemDetails, removeSystemDetail, addSystemDetail, editSystem, requestSuccess2, batchRemoveSystem } from '../../api/api';
 
 	export default {
 		data() {
@@ -357,6 +357,8 @@
 				});
 			},
 			selsChange: function (sels) {
+				//console.log("selsChange");
+				//console.log(sels);
 				this.sels = sels;
 			},
 			//批量删除
@@ -368,17 +370,17 @@
 					this.listLoading = true;
 					//NProgress.start();
 					let para = { ids: ids };
-					batchRemoveUser(para).then((res) => {
+					batchRemoveSystem(para).then((res) => {
 						this.listLoading = false;
 						//NProgress.done();
 						this.$message({
 							message: '删除成功',
 							type: 'success'
 						});
-						this.getUsers();
+						this.getSystemDetail();
 					});
 				}).catch(() => {
-
+					console.log("batchRemove error");
 				});
 			}
 		},

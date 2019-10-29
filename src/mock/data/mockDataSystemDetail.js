@@ -2,7 +2,7 @@ import Mock from 'mockjs';
 
 const MockDataSystemDetails = [];
 
-for (let i = 0; i < 55; i++) {
+for (let i = 0; i < 18; i++) {
   MockDataSystemDetails.push(Mock.mock({
     id: Mock.Random.guid(),
     //在数组中随机找一个
