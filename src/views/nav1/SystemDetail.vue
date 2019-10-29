@@ -74,7 +74,7 @@
 			}
 		},
 		mounted() {
-			console.log("mounted()");
+			//console.log("mounted()");
 			this.getSystemDetail();
 		}
 	};

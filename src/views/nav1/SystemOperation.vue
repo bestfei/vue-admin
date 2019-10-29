@@ -7,7 +7,7 @@
 					<el-input v-model="filters.name" placeholder="appname"></el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" v-on:click="getSystemDetail">Query</el-button>
+					<el-button type="primary" v-on:click="getSystemDetailList">Query</el-button>
 				</el-form-item>
 				<el-form-item>
 					<el-button type="primary" @click="handleAdd">Add</el-button>
@@ -138,7 +138,6 @@
 <script>
 	import util from '../../common/js/util'
 	//import NProgress from 'nprogress'
-	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
 	import { apiGetSystemDetailListPage, apiGetSystemDetails, removeSystemDetail, addSystemDetail, editSystem, requestSuccess2, batchRemoveSystem } from '../../api/api';
 
 	export default {
@@ -213,11 +212,11 @@
 			},
 			handleCurrentChange(val) {
 				this.page = val;
-				this.getSystemDetail();
+				this.getSystemDetailList();
 			},
 			//获取系统列表
-			getSystemDetail: function () {
-				//console.log("getSystemDetail");
+			getSystemDetailList: function () {
+				//console.log("getSystemDetailList");
 				let para = {
 					page: this.page,
 					name: this.filters.name
@@ -249,7 +248,7 @@
 							message: 'delete success',
 							type: 'success'
 						});
-						this.getSystemDetail();
+						this.getSystemDetailList();
 					});
 				}).catch(() => {
 					console.log("click cancel buttom");
@@ -301,7 +300,7 @@
 								});
 								this.$refs['editForm'].resetFields();
 								this.editFormVisible = false;
-								this.getSystemDetail();
+								this.getSystemDetailList();
 							});
 						});
 					}
@@ -332,7 +331,7 @@
 								});
 								this.$refs['addForm'].resetFields();
 								this.addFormVisible = false;
-								this.getSystemDetail();
+								this.getSystemDetailList();
 							});
 						}); // end this
 					} // end if
@@ -377,7 +376,7 @@
 							message: '删除成功',
 							type: 'success'
 						});
-						this.getSystemDetail();
+						this.getSystemDetailList();
 					});
 				}).catch(() => {
 					console.log("batchRemove error");
@@ -385,7 +384,7 @@
 			}
 		},
 		mounted() {
-			this.getSystemDetail();
+			this.getSystemDetailList();
 		}
 	}
 

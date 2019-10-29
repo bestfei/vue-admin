@@ -31,39 +31,40 @@ let routes = [
     {
         path: '/',
         component: Home,
-        name: '导航一',
-        iconCls: 'el-icon-message',//图标样式class
+        name: 'System Operation',
+        //iconCls: 'el-icon-message',//图标样式class
         children: [
             { path: '/main', component: Main, name: '主页', hidden: true },
-            { path: '/table', component: Table, name: 'Table' },
-            { path: '/SystemOperation', component: SystemOperation, name: 'System Operation' },
-            //{ path: '/form', component: Form, name: 'Form' },
-            { path: '/form2', component: Form2, name: 'Form2 Best Add' },
-            { path: '/user', component: user, name: '列表' },
-            //{ path: '/User2', component: User2, name: 'User2 Best Add' },
+            { path: '/SystemOperation', component: SystemOperation, name: 'System List' },
             { path: '/SystemDetail', component: SystemDetail, name: 'System Detail' },
+            { path: '/form2', component: Form2, name: 'Form2 Best Add' },
+            //{ path: '/table', component: Table, name: 'Table' },
+            //{ path: '/form', component: Form, name: 'Form' },
+            //{ path: '/user', component: user, name: '列表' },
+            //{ path: '/User2', component: User2, name: 'User2 Best Add' },
+
         ]
     },
     {
         path: '/',
         component: Home,
         name: '导航二',
-        iconCls: 'fa fa-id-card-o',
+        //iconCls: 'fa fa-id-card-o',
         children: [
             { path: '/page4', component: Page4, name: '页面4' },
             { path: '/page5', component: Page5, name: '页面5' }
         ]
     },
-    {
-        path: '/',
-        component: Home,
-        name: '',
-        iconCls: 'fa fa-address-card',
-        leaf: true,//只有一个节点
-        children: [
-            { path: '/page6', component: Page6, name: '导航三' }
-        ]
-    },
+    // {
+    //     path: '/',
+    //     component: Home,
+    //     name: '',
+    //     iconCls: 'fa fa-address-card',
+    //     leaf: true,//只有一个节点
+    //     children: [
+    //         { path: '/page6', component: Page6, name: '导航三' }
+    //     ]
+    // },
     {
         path: '/',
         component: Home,
